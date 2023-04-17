@@ -1,16 +1,33 @@
-# This is a sample Python script.
+from modules import printer, db, gui
+import PySimpleGUI as sg
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    print("Hello World")
+    template, code = printer.createTemplate().projectBox(1)
+    p._raw(template)
+    window = gui.getWindows()
+    while True:
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        if event == "-PRINT MENUE-":
+            gui.open_window()
+
+    #db.addNewProjectBox(code)
+
+def clean_up():
+    print("failed to print, clean up")
+    pass
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    printer.init()
+    gui.init()
+    global p
+    p = printer.getPrinter()
+    db.init()
+    try:
+        main()
+    except KeyboardInterrupt:
+        clean_up()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
